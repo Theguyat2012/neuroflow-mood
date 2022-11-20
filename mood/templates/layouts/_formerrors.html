@@ -1,0 +1,3 @@
+{% for field, errors in form.errors.items() %}
+{{ ', '.join(errors) }}
+{% endfor %}

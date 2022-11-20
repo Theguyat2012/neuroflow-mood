@@ -1,0 +1,49 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<body>
+    <div>
+        <h2>Stats for {{ current_user.username }}</h2>
+        <h3>Streak: {{ current_user.streak }}</h3>
+        {% if current_user.mood|length != 0 %}
+            {% if current_user.mood[current_user.mood|length - 1].created_at.strftime('%Y-%m-%d') == datetime.now().strftime('%Y-%m-%d') %}
+                <h3>Today's mood: {{ current_user.mood[current_user.mood|length - 1].status }}</h3>
+            {% else %}
+                <h3>Last mood picked: {{ current_user.mood[current_user.mood|length - 1].status}} on {{current_user.mood[current_user.mood|length - 1].created_at.strftime('%Y-%m-%d')}}</h3>
+            {% endif %}
+        {% else %}
+            <h3>Pick a mood!</h3>
+        {% endif %}
+    </div>
+    <div>
+        <form method="post">
+            <legend>Select a mood:</legend>
+            {{ form.csrf_token }}
+
+            {{ form.mood(value='Happy') }}
+            <br>
+
+            {{ form.mood(value='Content') }}
+            <br>
+
+            {{ form.mood(value='Sad') }}
+            <br>
+
+            {{ form.mood(value='Angry') }}
+            <br>
+
+            {{ form.mood(value='Depressed') }}
+            <br>
+
+            {{ form.mood(value='Anxious') }}
+            <br>
+        </form>
+    </div>
+    <div>
+        <h2>{{ current_user.username }} Account History</h2>
+        <div>
+            {% include "main/_moods.html" %}
+        </div>
+    </div>
+</body>
+{% endblock %}

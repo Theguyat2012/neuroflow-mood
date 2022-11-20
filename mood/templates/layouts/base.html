@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<title>{{ title }}</title>
+{% include 'layouts/_navbar.html' %}
+<section class="content">
+    <header>
+        <h1>{{ title }}</h1>
+    </header>
+    {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+</section>
